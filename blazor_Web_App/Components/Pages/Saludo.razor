@@ -1,0 +1,37 @@
+﻿@page "/saludo"
+@rendermode InteractiveServer
+
+<PageTitle>Saludo</PageTitle>
+
+<h3>Saludo</h3>
+
+<div class="alert alert-success">
+    @_letrero
+</div>
+
+@* <div class="alert alert-info">
+    @ChildContent
+</div> *@
+
+<div class="container">
+    <label>Nombre</label>
+    <input @bind="Letrero">
+</div>
+
+<button class="btn btn-primary mt-3" @onclick="Saludar">Saludar</button>
+
+@code {
+    [Parameter] //Con esta directiva le indico que es un parametro, cuando generemos el componente podemos cambiar el valor que tiene a traves de un parametro
+    //Maneras de quitar un warning, con un "?" o inicializando la variable
+    public string Letrero { get; set; } = "¡cambio de contenido!"; //Inicializacion de variable
+
+    //[Parameter]
+    //public RenderFragment? ChildContent{ get; set; } //Codigo HTML que debe ser renderizado
+
+    private string _letrero = "Hola mundo";
+
+    void Saludar()
+    {
+        _letrero = "¡Hola " + Letrero + "!";
+    }
+}

@@ -1,0 +1,63 @@
+﻿@page "/CambioMoneda"
+@rendermode InteractiveServer
+
+<h3>Cambio de Moneda</h3>
+
+<!-- Input -->
+<label>Cantidad en pesos mexicanos:</label>
+<input type="number" @bind="pesos" />
+
+<br />
+<br />
+
+<!-- Botón -->
+<button @onclick="CalcularCambio">Calcular cambio</button>
+
+<br />
+<br />
+
+<!-- Resultados -->
+@if (mostrarResultado)
+{
+    <label>Dólares:</label>
+    <input type="text" value="@dolares" readonly />
+
+    <br />
+    <br />
+
+    <label>Euros:</label>
+    <input type="text" value="@euros" readonly />
+
+    <br />
+    <br />
+
+    <label>Libras:</label>
+    <input type="text" value="@libras" readonly />
+}
+
+@code {
+
+    double pesos;
+
+    // Resultados
+    double dolares;
+    double euros;
+    double libras;
+
+    // Control para mostrar resultados
+    bool mostrarResultado = false;
+
+    // Valores de monedas (puedes cambiarlos)
+    double valorDolar = 17.90;
+    double valorEuro = 20.75;
+    double valorLibra = 21;
+
+    void CalcularCambio()
+    {
+        dolares = Math.Round(pesos / valorDolar, 2);
+        euros = Math.Round(pesos / valorEuro, 2);
+        libras = Math.Round(pesos / valorLibra, 2);
+
+        mostrarResultado = true;
+    }
+}
