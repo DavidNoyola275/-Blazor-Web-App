@@ -1,37 +1,89 @@
-﻿@page "/saludo"
+﻿@* @page "/saludo"
 @rendermode InteractiveServer
 
 <PageTitle>Saludo</PageTitle>
 
 <h3>Saludo</h3>
 
-<div class="alert alert-success">
-    @_letrero
-</div>
+@if (_edad >= 18)
+{
+    <div class="alert alert-success">
+        <p>@_letrero <br /></p>
+        <p>@_letreroEdad<br /></p>
+        <p class="border border-3 border-@((_datoCalificacion>5) ? "Succes" : "danger")" > @_letreroCalificacion <br /></p>
+    </div>
+}
+<div class="alert alert-danger mt-3">
+    <p>Solo adultos</p>
+</div> *@
 
 @* <div class="alert alert-info">
     @ChildContent
-</div> *@
-
-<div class="container">
-    <label>Nombre</label>
-    <input @bind="Letrero">
 </div>
 
-<button class="btn btn-primary mt-3" @onclick="Saludar">Saludar</button>
+<div class="col-10">
+    <label>Nombre</label>
+    <input id="txtNombre" class="form-control" @bind="Letrero">
+</div>
+
+<div class="row mt-3 align-items-center">
+    <label>edad</label>
+    <input id="txtEdad" class="form-control" @bind="_datoEdad"> 
+</div>
+
+<div class="row mt-3 align-items-center">
+    <label>Calificacion</label>
+    <input id="txtCalificacion" class="form-control" @bind="_letreroCalificacion">
+</div>
+
+<button class="btn btn-primary mt-3" @onclick="Saludar">Saludar</button> <br/>
+
+<br/> <EstadoSistema CodigoEstado="200"/> 
+<EstadoSistema CodigoEstado="404"/>
+<EstadoSistema CodigoEstado="500"/>
+<EstadoSistema CodigoEstado="401"/>
 
 @code {
-    [Parameter] //Con esta directiva le indico que es un parametro, cuando generemos el componente podemos cambiar el valor que tiene a traves de un parametro
-    //Maneras de quitar un warning, con un "?" o inicializando la variable
-    public string Letrero { get; set; } = "¡cambio de contenido!"; //Inicializacion de variable
+        [Parameter] //Con esta directiva le indico que es un parametro, cuando generemos el componente podemos cambiar el valor que tiene a traves de un parametro
+        //Maneras de quitar un warning, con un "?" o inicializando la variable
+        public string Letrero { get; set; } = "¡cambio de contenido!"; //Inicializacion de variable
 
     //[Parameter]
-    //public RenderFragment? ChildContent{ get; set; } //Codigo HTML que debe ser renderizado
+        //public RenderFragment? ChildContent{ get; set; } //Codigo HTML que debe ser renderizado
 
-    private string _letrero = "Hola mundo";
+    private string _letrero = "¡Hola mundo! ", _letreroEdad = "";
+    private int _datoEdad, _edad=10000;
+    private long _enteroLargo = 1000000000000000000;
+    private string _letreroCalificacion = "";
+    private int _datoCalificacion;
 
     void Saludar()
     {
-        _letrero = "¡Hola " + Letrero + "!";
+        _edad = _datoEdad;
+        _letrero = "Hola " + Letrero + "!";
+
+        switch (_datoCalificacion)
+        {
+            case 10:
+                _letreroCalificacion = "Calificacion A";
+                break;
+            case 9:
+                _letreroCalificacion = "Calificacion B";
+                break;
+            case 8:
+                _letreroCalificacion = "Calificacion C";
+                break;
+            case 7:
+                _letreroCalificacion = "Calificacion D";
+                break;
+            case 6:
+                _letreroCalificacion = "Calificacion E";
+                break;
+            case 5:
+                _letreroCalificacion = "Calificacion F";
+                break;
+
+        }
     }
 }
+*@

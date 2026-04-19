@@ -1,0 +1,75 @@
+﻿@page "/ParesImpares"
+@rendermode InteractiveServer
+
+<h3>Separar números pares e impares</h3>
+
+<div class="mb-3">
+    <label>Primer número</label>
+    <input type="number" class="form-control" @bind="num1" />
+</div>
+
+<div class="mb-3">
+    <label>Segundo número</label>
+    <input type="number" class="form-control" @bind="num2" />
+</div>
+
+<button class="btn btn-primary" @onclick="Calcular">
+    Calcular
+</button>
+
+<div class="row mt-4">
+    <div class="col-md-6">
+        <h4>Pares</h4>
+        @if (pares.Any())
+        {
+            <ul class="list-group">
+                @foreach (var p in pares)
+                {
+                    <li class="list-group-item">@p</li>
+                }
+            </ul>
+        }
+    </div>
+
+    <div class="col-md-6">
+        <h4>Impares</h4>
+        @if (impares.Any())
+        {
+            <ul class="list-group">
+                @foreach (var i in impares)
+                {
+                    <li class="list-group-item">@i</li>
+                }
+            </ul>
+        }
+    </div>
+</div>
+
+@code {
+    private int num1;
+    private int num2;
+
+    private List<int> pares = new List<int>();
+    private List<int> impares = new List<int>();
+
+    private void Calcular()
+    {
+        pares.Clear();
+        impares.Clear();
+
+        int inicio = Math.Min(num1, num2);
+        int fin = Math.Max(num1, num2);
+
+        for (int i = inicio; i <= fin; i++)
+        {
+            if (i % 2 == 0)
+            {
+                pares.Add(i);
+            }
+            else
+            {
+                impares.Add(i);
+            }
+        }
+    }
+}
